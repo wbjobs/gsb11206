@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>本地文件快照工具</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>本地文件快照工具</h1>
+    <p class="subtitle">File System Access API + IndexedDB + Web Worker · 增量快照 / 对比 / 回滚</p>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <section class="panel">
+    <h2>目录</h2>
+    <div class="row">
+      <button id="btnPick">选择目录</button>
+      <button id="btnReauth" hidden>重新授权</button>
+      <button id="btnForget" hidden>移除目录</button>
+      <span>当前目录：<strong id="dirName">未选择目录</strong></span>
+      <span id="permBadge" class="badge warn">待授权</span>
+    </div>
+    <div class="row">
+      <label for="intervalSelect">定时扫描：</label>
+      <select id="intervalSelect">
+        <option value="0">关闭</option>
+        <option value="30">每 30 秒</option>
+        <option value="60" selected>每 1 分钟</option>
+        <option value="300">每 5 分钟</option>
+        <option value="1800">每 30 分钟</option>
+      </select>
+      <button id="btnScan" disabled>立即扫描</button>
+      <button id="btnCancel" hidden>取消</button>
+    </div>
+    <div id="progress" class="progress" hidden>
+      <span id="progressText"></span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>存储</h2>
+    <div class="quota-bar"><div id="quotaFill" class="fill"></div></div>
+    <p id="quotaText" class="muted">存储用量未知</p>
+  </section>
+
+  <section class="panel">
+    <h2>快照</h2>
+    <div class="row">
+      <button id="btnCompare" disabled>对比选中（2 个）</button>
+      <button id="btnRollback" disabled>回滚到选中</button>
+      <button id="btnDelete" disabled>删除选中</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>ID</th><th>时间</th><th>触发</th><th>状态</th><th>内容</th><th>大小</th>
+        </tr>
+      </thead>
+      <tbody id="snapshotRows"></tbody>
+    </table>
+  </section>
+
+  <section class="panel" id="diffPanel">
+    <h2>对比结果</h2>
+    <div id="diffResult"><p class="muted">勾选两个快照后点击「对比选中」。</p></div>
+  </section>
+
+  <div id="toasts"></div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
