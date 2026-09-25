@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本地文件快照工具</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>本地文件快照工具</h1>
+  <div class="actions">
+    <button id="pickBtn">选择授权目录</button>
+    <button id="scanNowBtn">立即扫描</button>
+    <label>扫描间隔（秒）<input id="intervalInput" type="number" min="5" value="60"></label>
+  </div>
+</header>
+
+<div id="banner" class="banner" style="display:none">
+  <button id="reauthBtn">重新授权</button>
+</div>
+
+<section class="status">
+  <div class="card"><span class="label">授权目录</span><span id="dirName">未选择</span></div>
+  <div class="card"><span class="label">存储用量</span><span id="quotaInfo">…</span></div>
+  <div class="card"><span class="label">最近快照</span><span id="lastSnap">暂无</span></div>
+  <div class="card"><span class="label">下次扫描</span><span id="nextScan">—</span></div>
+</section>
+
+<div id="progressWrap" style="display:none">
+  <div class="bar"><div id="progressBar"></div></div>
+  <span id="progressText"></span>
+</div>
+
+<main>
+  <section>
+    <h2>快照列表</h2>
+    <ul id="snapList" class="snap-list"></ul>
+  </section>
+
+  <section>
+    <h2>快照对比</h2>
+    <div class="diff-controls">
+      <select id="diffA"></select>
+      <span>→</span>
+      <select id="diffB"></select>
+      <button id="diffBtn">对比</button>
+    </div>
+    <div id="diffResult"></div>
+  </section>
+
+  <section>
+    <h2>快照内容</h2>
+    <div id="manifestView"><p class="muted">点击快照的「查看」按钮查看文件清单。</p></div>
+  </section>
+</main>
+
+<div id="toast" class="toast" style="display:none"></div>
+
+<script src="db.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
